@@ -1,3 +1,5 @@
+// TEKNIK MEMUAT LIBRARY DENGAN LAZY LOADING
+// https://codeburst.io/lazy-loading-external-javascript-libraries-in-angular-3d86ada54ec7
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ReplaySubject, Observable, forkJoin } from 'rxjs';
@@ -14,11 +16,11 @@ export class LibraryLoadersService {
   /**
    * Memuat library pihak ketiga untuk tampilan
    */
-  loadViewLibrary(): Observable<any> {
+  loadViewLibraryCSS(): Observable<any> {
     return forkJoin([
-      this.loadStyle('bulma-css'),
-      this.loadStyle('bulma-divider-css'),
-      this.loadStyle('fontawesome-css')
+      this.loadStyle('bulma-css.css'),
+      this.loadStyle('bulma-divider-css.css'),
+      this.loadStyle('fontawesome-css.css')
     ]);
   }
 
