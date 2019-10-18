@@ -6,4 +6,20 @@ import { Injectable } from '@angular/core';
 export class DataLoadersService {
 
   constructor() { }
+
+  cekPasswordIsianPengguna() {
+
+  }
+
+  savePasswordIsianPengguna() {
+
+  }
+
+  getDataCatatanStorage() {
+
+  }
+
+  setDataCatatanStorage() {
+
+  }
 }
