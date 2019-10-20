@@ -14,7 +14,7 @@ export class DataStorageService {
     return promiseSaved;
   }
 
-  getItemStorage(key: string) {
+  getItemStorage(key: string): Promise<any> {
     const promiseGetData = localForage.getItem(key);
     return promiseGetData;
   }
