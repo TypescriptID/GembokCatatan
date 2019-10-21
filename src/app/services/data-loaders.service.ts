@@ -23,9 +23,7 @@ export class DataLoadersService {
 
     const dataPassCookies = await this.storageService.getDataCookie(KEY_COOKIES_PASSWORD);
     const dataUsernameCookies = await this.storageService.getDataCookie(KEY_COOKIES_USERNAME);
-    const stringPassIsianHashed = await new Promise((resolve) => {
-      resolve(this.kunciPass.parseKunciPasswordToHash(stringPassIsian));
-    });
+    const stringPassIsianHashed = await this.kunciPass.parseKunciPasswordToHash(stringPassIsian);
 
     if (dataPassCookies === stringPassIsianHashed) {
       passwordCekModel.isPasswordOK = true;
@@ -94,10 +92,9 @@ export class DataLoadersService {
   }
 
   async resetDataStorageClear() {
-    const resultOkStorage = await this.storageService.clearDataStorage();
-    const resultOkCookiesUsername = await this.storageService.deleteDataCookie(KEY_COOKIES_USERNAME);
-    const resultOkCookiesPass = await this.storageService.deleteDataCookie(KEY_COOKIES_PASSWORD);
-
+    await this.storageService.clearDataStorage();
+    await this.storageService.deleteDataCookie(KEY_COOKIES_USERNAME);
+    await this.storageService.deleteDataCookie(KEY_COOKIES_PASSWORD);
     return Promise.resolve(true);
   }
 }
