@@ -17,4 +17,39 @@ export class LoginpageComponent implements OnInit {
   ngOnInit() {
   }
 
+  getIsianPengguna() {
+
+  }
+
+  cekIsianPengguna() {
+
+  }
+
+  parseDataIsianPengguna() {
+
+  }
+
+  cekHasilParseIsianPenggunaCookies() {
+
+  }
+
+  simpanIsianKataSandiPengguna() {
+
+  }
+
+  navigasiHalamanLupaPassword() {
+
+  }
+
+  navigasiHalamanKeterangan() {
+
+  }
+
+  navigasiHalamanPasswordGenerator() {
+
+  }
+
+  navigasiHalamanEksporImporCatatan() {
+
+  }
 }
