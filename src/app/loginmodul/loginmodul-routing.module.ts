@@ -10,7 +10,7 @@ const routes: Routes = [
     component: LoginpageComponent,
   },
   {
-    path: '/lupa-password',
+    path: 'lupa-password',
     component: LupapasswordComponent,
   },
   {

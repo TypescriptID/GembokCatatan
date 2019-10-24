@@ -8,6 +8,10 @@ const routes: Routes = [
     loadChildren: () => import('./loginmodul/loginmodul.module').then(module => module.LoginmodulModule),
   },
   {
+    path: 'catatan',
+    loadChildren: () => import('./daftar-catatan/daftar-catatan.module').then(module => module.DaftarCatatanModule),
+  },
+  {
     path: '',
     redirectTo: '/masuk-login',
     pathMatch: 'full',
