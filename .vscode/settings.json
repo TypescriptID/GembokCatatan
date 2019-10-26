@@ -38,7 +38,7 @@
       "**/.idea/": true,
   },
   "workbench.colorCustomizations": {
-      "editorCursor.foreground": "#ffff00",
-      "terminalCursor.foreground": "#ffff00"
+      "editorCursor.foreground": "#deb881",
+      "terminalCursor.foreground": "#deb881"
   }
 }

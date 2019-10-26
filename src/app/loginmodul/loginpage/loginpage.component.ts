@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataLoadersService } from 'src/app/services/data-loaders.service';
 
 @Component({
   selector: 'app-loginpage',
@@ -12,7 +14,8 @@ export class LoginpageComponent implements OnInit {
     password: ''
   };
 
-  constructor() { }
+  constructor(private router: Router,
+              private readonly dataservice: DataLoadersService) { }
 
   ngOnInit() {
   }
@@ -35,6 +38,11 @@ export class LoginpageComponent implements OnInit {
 
   simpanIsianKataSandiPengguna() {
 
+  }
+
+  navigasiHalamanCatatan() {
+    console.log('click');
+    this.router.navigate(['/catatan']);
   }
 
   navigasiHalamanLupaPassword() {

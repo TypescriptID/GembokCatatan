@@ -18,6 +18,7 @@
                   placeholder="Nama Panggilan"
                   autofocus=""
                   [(ngModel)]="loginData.username"
+                  name="username"
                 />
                 <span class="icon is-medium is-left">
                   <i class="fas fa-envelope"></i>
@@ -32,6 +33,7 @@
                   type="password"
                   placeholder="Kata Sandi"
                   [(ngModel)]="loginData.password"
+                  name="passwordkunci"
                 />
                 <span class="icon is-medium is-left">
                   <i class="fas fa-lock"></i>
@@ -39,7 +41,7 @@
               </div>
             </div>
 
-            <button class="button is-block is-info is-large is-fullwidth">
+            <button class="button is-block is-info is-large is-fullwidth" (click)="navigasiHalamanCatatan()">
               Masuk <i class="fa fa-sign-in" aria-hidden="false"></i>
             </button>
           </form>

@@ -6,10 +6,11 @@ import { LoginmodulRoutingModule } from './loginmodul-routing.module';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { LupapasswordComponent } from './lupapassword/lupapassword.component';
 import { KeteranganPasswordComponent } from './keterangan-password/keterangan-password.component';
+import { GeneratorPasswordComponent } from './generator-password/generator-password.component';
 
 
 @NgModule({
-  declarations: [LoginpageComponent, LupapasswordComponent, KeteranganPasswordComponent],
+  declarations: [LoginpageComponent, LupapasswordComponent, KeteranganPasswordComponent, GeneratorPasswordComponent],
   imports: [
     CommonModule,
     FormsModule,
