@@ -7,10 +7,13 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 import { LupapasswordComponent } from './lupapassword/lupapassword.component';
 import { KeteranganPasswordComponent } from './keterangan-password/keterangan-password.component';
 import { GeneratorPasswordComponent } from './generator-password/generator-password.component';
+import { RegistrasiPasswordComponent } from './registrasi-password/registrasi-password.component';
 
 
 @NgModule({
-  declarations: [LoginpageComponent, LupapasswordComponent, KeteranganPasswordComponent, GeneratorPasswordComponent],
+  declarations: [LoginpageComponent, LupapasswordComponent,
+    KeteranganPasswordComponent, GeneratorPasswordComponent,
+    RegistrasiPasswordComponent],
   imports: [
     CommonModule,
     FormsModule,
