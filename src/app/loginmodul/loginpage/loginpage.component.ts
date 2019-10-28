@@ -74,12 +74,13 @@ export class LoginpageComponent implements OnInit {
   }
 
   navigasiHalamanRegistrasi() {
-
+    console.log('click');
+    this.router.navigate(['/masuk-login/registrasi-pengguna'], { replaceUrl: true });
   }
 
   navigasiHalamanCatatan() {
     console.log('click');
-    this.router.navigate(['/catatan']);
+    this.router.navigate(['/catatan'], { replaceUrl: true});
   }
 
   navigasiHalamanLupaPassword() {
