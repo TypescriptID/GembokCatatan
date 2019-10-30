@@ -9,7 +9,6 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
 
   registrasiData = {
     username: '',
-    usernameKonfirm: '',
     password: '',
     passwordKonfirm: ''
   };
@@ -23,16 +22,30 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
 
   }
 
-  getIsianPengguna() {
-
-  }
-
   cekIsianPengguna() {
+    const stringUsername = this.registrasiData.username;
+    const stringPassword = this.registrasiData.password;
+    const stringPasswordKonfirm = this.registrasiData.passwordKonfirm;
 
+    if (stringUsername && stringUsername.length > 3) {
+      if (stringPassword && stringPasswordKonfirm) {
+        if (stringPassword === stringPasswordKonfirm) {
+          this.simpanIsianPengguna();
+        } else {
+          this.showDialogPeringatanGagal('Kata sandi tidak sama, harap diperbaiki');
+        }
+      } else {
+        this.showDialogPeringatanGagal('Silahkan isi kata sandi dengan benar');
+      }
+    } else {
+      this.showDialogPeringatanGagal('Silahkan isi nama pengguna dengan benar');
+    }
   }
 
   simpanIsianPengguna() {
-
+    // ubah data isian ke dalam bentuk password hash
+    // simpan ke local cookies
+    // navigasi ke halaman login pengguna
   }
 
   navigasiKePasswordGenerator() {
