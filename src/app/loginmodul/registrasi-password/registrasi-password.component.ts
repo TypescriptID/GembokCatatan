@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DataLoadersService } from 'src/app/services/data-loaders.service';
 
 @Component({
   selector: 'app-registrasi-password',
@@ -13,7 +14,7 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
     passwordKonfirm: ''
   };
 
-  constructor() { }
+  constructor(private readonly dataService: DataLoadersService) { }
 
   ngOnInit() {
   }
@@ -46,6 +47,19 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
     // ubah data isian ke dalam bentuk password hash
     // simpan ke local cookies
     // navigasi ke halaman login pengguna
+    this.dataService.savePasswordIsianPengguna(this.registrasiData.username, this.registrasiData.password)
+      .then((result: boolean) => {
+        // sukses menyimpan data kata sandi, navigasi ke halaman login kembali
+        if (result === true) {
+          this.showDialogKonfirmasiSuksesRegistrasi();
+        } else {
+          this.showDialogPeringatanGagal('Gagal menyimpan data kata sandi');
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+        this.showDialogPeringatanGagal('Gagal menyimpan data kata sandi');
+      });
   }
 
   navigasiKePasswordGenerator() {
@@ -56,7 +70,7 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
 
   }
 
-  showDialogKonfirmasiSukses() {
+  showDialogKonfirmasiSuksesRegistrasi() {
 
   }
 
