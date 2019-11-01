@@ -102,7 +102,7 @@ export class LoginpageComponent implements OnInit {
   showDialogGagal(stringPesan: string = '') {
     Swal.fire({
       type: 'error',
-      title: 'Oops...',
+      title: 'Gagal...',
       text: stringPesan,
       confirmButtonText: 'Setuju',
       customClass: {

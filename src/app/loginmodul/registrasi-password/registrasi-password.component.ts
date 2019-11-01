@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataLoadersService } from 'src/app/services/data-loaders.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registrasi-password',
@@ -51,7 +52,7 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
       .then((result: boolean) => {
         // sukses menyimpan data kata sandi, navigasi ke halaman login kembali
         if (result === true) {
-          this.showDialogKonfirmasiSuksesRegistrasi();
+          this.showDialogKonfirmasiSuksesRegistrasi('Registrasi akun catatan berhasil');
         } else {
           this.showDialogPeringatanGagal('Gagal menyimpan data kata sandi');
         }
@@ -70,11 +71,34 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
 
   }
 
-  showDialogKonfirmasiSuksesRegistrasi() {
-
+  showDialogKonfirmasiSuksesRegistrasi(stringPesan: string) {
+    Swal.fire({
+      type: 'success',
+      title: 'Berhasil...',
+      text: stringPesan,
+      confirmButtonText: 'Setuju',
+      timer: 2000,
+      allowOutsideClick: false,
+      onClose: () => {
+        this.navigasiBalikLogin();
+      }
+    }).then((result) => {
+      if (result.value) {
+        this.navigasiBalikLogin();
+      }
+    });
   }
 
   showDialogPeringatanGagal(stringPesan: string = '') {
-
+    Swal.fire({
+      type: 'error',
+      title: 'Gagal...',
+      text: stringPesan,
+      confirmButtonText: 'Setuju',
+      allowOutsideClick: false,
+      customClass: {
+        confirmButton: 'button is-success',
+      }
+    });
   }
 }
