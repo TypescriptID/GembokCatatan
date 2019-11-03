@@ -97,4 +97,12 @@ export class DataLoadersService {
     await this.storageService.deleteDataCookie(KEY_COOKIES_PASSWORD);
     return Promise.resolve(true);
   }
+
+  cekStringDataCatatan(stringTest: string) {
+    // cek form isian jika data sudah benar dan tidak ada karakter yang aneh
+    // alfabet, angka,spasi diikutkan
+    const regexValidasi = new RegExp(/^[a-zA-Z0-9\-_]*$/);
+    const isValid = regexValidasi.test(stringTest);
+    return isValid;
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataLoadersService } from 'src/app/services/data-loaders.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrasi-password',
@@ -15,9 +16,11 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
     passwordKonfirm: ''
   };
 
-  constructor(private readonly dataService: DataLoadersService) { }
+  constructor(private readonly dataService: DataLoadersService,
+              private router: Router) { }
 
   ngOnInit() {
+
   }
 
   ngOnDestroy(): void {
@@ -28,11 +31,17 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
     const stringUsername = this.registrasiData.username;
     const stringPassword = this.registrasiData.password;
     const stringPasswordKonfirm = this.registrasiData.passwordKonfirm;
+    const isValidUsername = this.dataService.cekStringDataCatatan(stringUsername);
+    const isValidPassword = this.dataService.cekStringDataCatatan(stringPassword);
 
     if (stringUsername && stringUsername.length > 3) {
       if (stringPassword && stringPasswordKonfirm) {
         if (stringPassword === stringPasswordKonfirm) {
-          this.simpanIsianPengguna();
+          if (isValidUsername && isValidPassword) {
+            this.simpanIsianPengguna();
+          } else {
+            this.showDialogPeringatanGagal('Silahkan perbaiki karakter nama pengguna dan kata sandi dengan benar');
+          }
         } else {
           this.showDialogPeringatanGagal('Kata sandi tidak sama, harap diperbaiki');
         }
@@ -68,7 +77,7 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
   }
 
   navigasiBalikLogin() {
-
+    this.router.navigate(['/masuk-login']);
   }
 
   showDialogKonfirmasiSuksesRegistrasi(stringPesan: string) {
@@ -81,6 +90,9 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
       allowOutsideClick: false,
       onClose: () => {
         this.navigasiBalikLogin();
+      },
+      customClass: {
+        confirmButton: 'is-info',
       }
     }).then((result) => {
       if (result.value) {
@@ -94,10 +106,13 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
       type: 'error',
       title: 'Gagal...',
       text: stringPesan,
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonColor: '#f14668',
       confirmButtonText: 'Setuju',
       allowOutsideClick: false,
       customClass: {
-        confirmButton: 'button is-success',
+        cancelButton: 'buttoncancel-style',
       }
     });
   }
