@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DataLoadersService } from 'src/app/services/data-loaders.service';
 import Swal from 'sweetalert2';
 import { PasswordCekModel } from 'src/app/models/PasswordCek';
+import { CatatanItem } from 'src/app/models/CatatanItem';
 
 @Component({
   selector: 'app-loginpage',
@@ -12,6 +13,11 @@ import { PasswordCekModel } from 'src/app/models/PasswordCek';
 export class LoginpageComponent implements OnInit {
 
   loginData = {
+    username: '',
+    password: ''
+  };
+
+  loginDataValid = {
     username: '',
     password: ''
   };
@@ -50,7 +56,11 @@ export class LoginpageComponent implements OnInit {
       const isUsernameOk = result.isUsernameOk;
       const isPassOk = result.isPasswordOK;
       if (isUsernameOk && isPassOk) {
+        this.loginDataValid.username = this.loginData.username;
+        this.loginDataValid.password = this.loginData.password;
 
+        // lakukan pengecekan apakah bisa dipakai untuk membuka data catatan
+        this.parseDataCatatanPenggunaTersimpan();
       } else {
         this.showDialogGagal('Nama pengguna dan kata sandi anda tidak cocok');
       }
@@ -61,16 +71,19 @@ export class LoginpageComponent implements OnInit {
     });
   }
 
-  parseDataIsianPengguna() {
-
-  }
-
-  cekHasilParseIsianPenggunaCookies() {
-
-  }
-
-  simpanIsianKataSandiPengguna() {
-
+  parseDataCatatanPenggunaTersimpan() {
+    // cek apakah password isian yang benar tadi bisa dipakai untuk membuka catatan
+    this.dataservice.getDataCatatanStorage(this.loginDataValid.password)
+    .then((result: CatatanItem[]) => {
+      if (result.length >= 0) {
+        // pindah ke halaman isi catatan
+        this.navigasiHalamanCatatan();
+      }
+    })
+    .catch((err) => {
+      console.warn(err);
+      this.showDialogGagal('Catatan yang disimpan tidak dapat dibuka dengan kata sandi yang anda masukkan');
+    });
   }
 
   navigasiHalamanRegistrasi() {

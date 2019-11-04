@@ -23,9 +23,9 @@ export class DataLoadersService {
 
     const dataPassCookies = await this.storageService.getDataCookie(KEY_COOKIES_PASSWORD);
     const dataUsernameCookies = await this.storageService.getDataCookie(KEY_COOKIES_USERNAME);
-    const stringPassIsianHashed = await this.kunciPass.parseKunciPasswordToHash(stringPassIsian);
+    const stringPassDataCookies = await this.kunciPass.parseKunciPasswordToString(stringPassIsian, String(dataPassCookies));
 
-    if (dataPassCookies === stringPassIsianHashed) {
+    if (stringPassIsian === stringPassDataCookies) {
       passwordCekModel.isPasswordOK = true;
       if (stringUsernameIsian === dataUsernameCookies) {
         passwordCekModel.isUsernameOk = true;
@@ -55,12 +55,22 @@ export class DataLoadersService {
 
   async getDataCatatanStorage(stringPassIsianTemp: string): Promise<CatatanItem[]> {
     // ambil. data catatan dari local storage yang disimpan
-    const stringJsonDataCatatanHashed: string = await this.storageService.getItemStorage(KEY_STORAGE_DATACATATAN);
-    // konversi dari hashed ke string json
-    const stringJsonParsed: string = await this.kunciPass.konversiCatatanFromHash(stringPassIsianTemp, stringJsonDataCatatanHashed);
+    let jsonDataParsed: CatatanItem[] = [];
 
-    const jsonDataParsed: CatatanItem[] = JSON.parse(stringJsonParsed);
-    return Promise.resolve(jsonDataParsed);
+    const stringJsonDataCatatanHashed: string = await this.storageService.getItemStorage(KEY_STORAGE_DATACATATAN);
+    if (stringJsonDataCatatanHashed) {
+      const stringJsonParsed: string = await this.kunciPass.konversiCatatanFromHash(stringPassIsianTemp, stringJsonDataCatatanHashed);
+      if (stringJsonParsed) {
+        jsonDataParsed = JSON.parse(stringJsonParsed);
+        return Promise.resolve(jsonDataParsed);
+      } else {
+        // catatan gagal dikonversi karena password pembukanya salah
+        return Promise.reject(new Error('Data catatan tidak bisa dibuka'));
+      }
+    } else {
+      // data catatan kosong, return catatan kosong
+      return Promise.resolve(jsonDataParsed);
+    }
   }
 
   async setDataCatatanStorage(

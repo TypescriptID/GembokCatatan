@@ -77,7 +77,7 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
   }
 
   navigasiBalikLogin() {
-    this.router.navigate(['/masuk-login']);
+    this.router.navigate(['/masuk-login'], {replaceUrl: true});
   }
 
   showDialogKonfirmasiSuksesRegistrasi(stringPesan: string) {
