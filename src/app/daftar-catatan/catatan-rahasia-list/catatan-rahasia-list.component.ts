@@ -12,4 +12,20 @@ export class CatatanRahasiaListComponent implements OnInit {
   ngOnInit() {
   }
 
+  ambilDaftarCatatan() {
+
+  }
+
+  navigasiHalamanBuatCatatan() {
+
+  }
+
+  navigasiHalamanPassGenerator() {
+
+  }
+
+  navigasiHalamanLoginLogout() {
+
+  }
+
 }
