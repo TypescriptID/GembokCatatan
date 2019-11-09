@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CatatanItem } from 'src/app/models/CatatanItem';
 
 @Component({
   selector: 'app-catatan-rahasia-list',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./catatan-rahasia-list.component.scss']
 })
 export class CatatanRahasiaListComponent implements OnInit {
+
+  isCatatanTersedia = false;
+  listCatatan: CatatanItem[] = [];
 
   constructor() { }
 
