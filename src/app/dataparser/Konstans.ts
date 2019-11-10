@@ -9,8 +9,10 @@ export {
 };
 
 // ROUTING NAME
-const ROUTE_CATATAN = '/catatan/buat-catatan';
+const ROUTE_BUAT_CATATAN = '/catatan/buat-catatan';
+const ROUTE_NAV_DAFTAR_CATATAN = '/catatan';
 
 export {
-  ROUTE_CATATAN
+  ROUTE_BUAT_CATATAN,
+  ROUTE_NAV_DAFTAR_CATATAN
 };

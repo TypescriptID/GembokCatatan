@@ -75,7 +75,7 @@ export class DataLoadersService {
 
   async setDataCatatanStorage(
     stringPassIsianTemp: string,
-    catatanModel: CatatanItem, catatanList: CatatanItem[]) {
+    catatanModel: CatatanItem, catatanList: CatatanItem[]): Promise<boolean> {
     // simpan data catatan ke dalam array
     catatanList.push(catatanModel);
     const stringJsonDataList: string = await new Promise((resolve) => {

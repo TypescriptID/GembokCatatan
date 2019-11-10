@@ -62,29 +62,22 @@
   <div class="container">
     <div class="columns">
       <div class="column is-12">
-        <div class="box content has-text-centered">
+        <div class="box content">
           <article class="post">
-            <h4>Catatan belum tersedia untuk ditampilkan</h4>
+            <h4 class="padding-bottom-text">Buat Catatan Rahasia</h4>
+            <p>Silahkan masukkan catatan rahasia anda pada kolom isian di bawah ini &nbsp;</p>
             <div class="media has-text-centered">
               <div class="media-content">
                 <div class="content">
-                  <p class="has-text-centered">
-                    Silahkan masukkan catatan bersifat rahasia melalui menu Buat Catatan &nbsp;
-                  </p>
 
                   <!-- JUDUL CATATAN -->
                   <div class="field">
-                    <div class="field-label">
+                    <div class="control">
                       <label class="label" for="judul_catatan">
                         Judul Catatan
                       </label>
-                    </div>
-                    <div class="field-body">
-                      <div class="field">
-                        <div class="control">
-                          <input id="judul_catatan" class="input is-rounded" type="text" placeholder="Rounded input">
-                        </div>
-                      </div>
+                      <input id="judul_catatan" class="input is-rounded" type="text" placeholder="Judul catatan rahasia anda"
+                      [(ngModel)]="catatanItems.judul">
                     </div>
                   </div>
 
@@ -95,10 +88,13 @@
                   </div>
 
                   <!-- TOMBOL SIMPAN ATAU BATAL -->
-                  <div class="field is-grouped">
+                  <div class="field is-grouped is-pulled-right m-t-md">
                     <div class="control">
-                        <button class="button is-success is-rounded">SIMPAN CATATAN</button>
-                        <button class="button is-danger is-rounded">BATAL</button>
+                      <button class="button is-success is-rounded has-text-weight-bold is-size-6"
+                      (click)="cekIsianCatatan()">Simpan Catatan</button>
+                      <button
+                        class="button is-danger is-rounded has-text-weight-bold m-l-md is-size-6 width-tombol-batal"
+                        (click)="navigasiHalamanDaftarCatatan()">Batalkan</button>
                     </div>
                   </div>
                 </div>
