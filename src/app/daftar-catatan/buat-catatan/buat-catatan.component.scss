@@ -1,0 +1,11 @@
+.bg-components {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background: #F2F6FA;
+  min-height: 100vh;
+  padding-top: 2em;
+  padding-bottom: 3em;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 10em;
+}

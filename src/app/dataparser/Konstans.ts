@@ -7,3 +7,10 @@ export {
   KEY_COOKIES_PASSWORD,
   KEY_STORAGE_DATACATATAN,
 };
+
+// ROUTING NAME
+const ROUTE_CATATAN = '/catatan/buat-catatan';
+
+export {
+  ROUTE_CATATAN
+};

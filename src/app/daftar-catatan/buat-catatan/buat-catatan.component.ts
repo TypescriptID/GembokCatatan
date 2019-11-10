@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-buat-catatan',
@@ -7,9 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuatCatatanComponent implements OnInit {
 
+  public editorText = ClassicEditor;
+
+  configEditor = {
+    toolbar: [ 'heading', '|', 'bold', 'italic', 'link',
+    'bulletedList', 'numberedList', 'blockQuote',
+    '|', 'undo', 'redo', '|', 'outdent', 'indent' ],
+    placeholder: 'Isi pesan catatan disini'
+  };
+
+  catatanItems = {
+    judul: '',
+    isicatatan: '',
+    tanggalcatatan: ''
+  };
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  cekIsianCatatan() {
+
+  }
+
+  buatCatatan() {
+
+  }
 }

@@ -1,1 +1,112 @@
-<p>buat-catatan works!</p>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item">
+        Daftar Catatan
+      </a>
+
+      <a class="navbar-item">
+        Buat Catatan
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Menu Lain
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+            Tentang Aplikasi
+          </a>
+          <a class="navbar-item">
+            Kode Sumber Aplikasi
+          </a>
+          <a class="navbar-item">
+            Kontak
+          </a>
+          <hr class="navbar-divider" />
+          <a class="navbar-item">
+            Laporkan Error
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-danger">
+            <strong>Keluar</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- BUAT DAFTAR CATATAN -->
+<section class="is-fullheight is-fullwidth bg-components">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-12">
+        <div class="box content has-text-centered">
+          <article class="post">
+            <h4>Catatan belum tersedia untuk ditampilkan</h4>
+            <div class="media has-text-centered">
+              <div class="media-content">
+                <div class="content">
+                  <p class="has-text-centered">
+                    Silahkan masukkan catatan bersifat rahasia melalui menu Buat Catatan &nbsp;
+                  </p>
+
+                  <!-- JUDUL CATATAN -->
+                  <div class="field">
+                    <div class="field-label">
+                      <label class="label" for="judul_catatan">
+                        Judul Catatan
+                      </label>
+                    </div>
+                    <div class="field-body">
+                      <div class="field">
+                        <div class="control">
+                          <input id="judul_catatan" class="input is-rounded" type="text" placeholder="Rounded input">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ISI CATATAN -->
+                  <div>
+                    <ckeditor [editor]="editorText" [(ngModel)]="catatanItems.isicatatan" [config]="configEditor">
+                    </ckeditor>
+                  </div>
+
+                  <!-- TOMBOL SIMPAN ATAU BATAL -->
+                  <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-success is-rounded">SIMPAN CATATAN</button>
+                        <button class="button is-danger is-rounded">BATAL</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

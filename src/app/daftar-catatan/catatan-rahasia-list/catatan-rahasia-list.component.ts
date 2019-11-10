@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatatanItem } from 'src/app/models/CatatanItem';
+import { Router } from '@angular/router';
+import { ROUTE_CATATAN } from 'src/app/dataparser/Konstans';
 
 @Component({
   selector: 'app-catatan-rahasia-list',
@@ -11,7 +13,9 @@ export class CatatanRahasiaListComponent implements OnInit {
   isCatatanTersedia = false;
   listCatatan: CatatanItem[] = [];
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -21,7 +25,7 @@ export class CatatanRahasiaListComponent implements OnInit {
   }
 
   navigasiHalamanBuatCatatan() {
-
+    this.router.navigate([ROUTE_CATATAN]);
   }
 
   navigasiHalamanPassGenerator() {
