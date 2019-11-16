@@ -86,6 +86,10 @@ export class LoginpageComponent implements OnInit {
     });
   }
 
+  simpanStateDataLogin() {
+
+  }
+
   navigasiHalamanRegistrasi() {
     this.router.navigate(['/masuk-login/registrasi-pengguna'], { replaceUrl: true });
   }
