@@ -14,7 +14,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item">
+      <a class="navbar-item" (click)="navigasiHalamanDaftarCatatan()">
         Daftar Catatan
       </a>
 
@@ -76,8 +76,8 @@
                       <label class="label" for="judul_catatan">
                         Judul Catatan
                       </label>
-                      <input id="judul_catatan" class="input is-rounded" type="text" placeholder="Judul catatan rahasia anda"
-                      [(ngModel)]="catatanItems.judul">
+                      <input id="judul_catatan" class="input is-rounded" type="text"
+                        placeholder="Judul catatan rahasia anda" [(ngModel)]="catatanItems.judul">
                     </div>
                   </div>
 
@@ -91,7 +91,7 @@
                   <div class="field is-grouped is-pulled-right m-t-md">
                     <div class="control">
                       <button class="button is-success is-rounded has-text-weight-bold is-size-6"
-                      (click)="cekIsianCatatan()">Simpan Catatan</button>
+                        (click)="cekIsianCatatan()">Simpan Catatan</button>
                       <button
                         class="button is-danger is-rounded has-text-weight-bold m-l-md is-size-6 width-tombol-batal"
                         (click)="navigasiHalamanDaftarCatatan()">Batalkan</button>

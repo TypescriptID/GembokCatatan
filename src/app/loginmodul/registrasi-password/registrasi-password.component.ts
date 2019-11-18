@@ -35,7 +35,8 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
     const isValidPassword = this.dataService.cekStringDataCatatan(stringPassword);
 
     if (stringUsername && stringUsername.length > 3) {
-      if (stringPassword && stringPasswordKonfirm) {
+      if (stringPassword && stringPasswordKonfirm
+        && stringPassword.length > 3 && stringPasswordKonfirm.length > 3) {
         if (stringPassword === stringPasswordKonfirm) {
           if (isValidUsername && isValidPassword) {
             this.simpanIsianPengguna();

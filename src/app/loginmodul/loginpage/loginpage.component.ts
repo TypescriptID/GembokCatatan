@@ -4,6 +4,7 @@ import { DataLoadersService } from 'src/app/services/data-loaders.service';
 import Swal from 'sweetalert2';
 import { PasswordCekModel } from 'src/app/models/PasswordCek';
 import { CatatanItem } from 'src/app/models/CatatanItem';
+import { StatedataServicesService } from 'src/app/services/statedata-services.service';
 
 @Component({
   selector: 'app-loginpage',
@@ -23,7 +24,8 @@ export class LoginpageComponent implements OnInit {
   };
 
   constructor(private router: Router,
-              private readonly dataservice: DataLoadersService) { }
+              private readonly dataservice: DataLoadersService,
+              private readonly stateservice: StatedataServicesService) { }
 
   ngOnInit() {
   }
@@ -76,8 +78,8 @@ export class LoginpageComponent implements OnInit {
     this.dataservice.getDataCatatanStorage(this.loginDataValid.password)
     .then((result: CatatanItem[]) => {
       if (result.length >= 0) {
-        // pindah ke halaman isi catatan
-        this.navigasiHalamanCatatan();
+        // catatan berhasil dibuka dengan kata sandi
+        this.simpanStateDataLogin();
       }
     })
     .catch((err) => {
@@ -87,7 +89,10 @@ export class LoginpageComponent implements OnInit {
   }
 
   simpanStateDataLogin() {
-
+    // catatan berhasil dibuka dan kata sandi benar
+    // pindah ke halaman isi catatan
+    this.stateservice.setIsianDataPenggunaTemp(this.loginDataValid.username, this.loginDataValid.password);
+    this.navigasiHalamanCatatan();
   }
 
   navigasiHalamanRegistrasi() {

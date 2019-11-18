@@ -6,4 +6,10 @@ import { Injectable } from '@angular/core';
 export class LoggerDataService {
 
   constructor() { }
+
+  logData(message: any) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(message);
+    }
+  }
 }

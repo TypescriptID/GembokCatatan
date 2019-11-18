@@ -5,3 +5,14 @@
   padding-top: 2em;
   padding-bottom: 3em;
 }
+
+.container-listitem {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.container-center-forbidden {
+  display: flex;
+  justify-content: center;
+}

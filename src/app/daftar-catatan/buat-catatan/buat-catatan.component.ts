@@ -45,10 +45,8 @@ export class BuatCatatanComponent implements OnInit {
   }
 
   cekIsianCatatan() {
-    console.log('buat catatan 1');
     if (this.catatanItems.judul && this.catatanItems.judul.length > 5) {
       if (this.catatanItems.isicatatan && this.catatanItems.isicatatan.length > 5) {
-        console.log('buat catatan 2');
         this.buatSimpanCatatan();
       } else {
         this.showToastGagal('Silahkan isi catatan rahasia dengan benar');
@@ -63,11 +61,8 @@ export class BuatCatatanComponent implements OnInit {
     this.catatanItems.tanggalcatatanms = parseTanggalSaatIniMs();
     const userDataTemp: UserDataTemp = this.stateData.getIsianDataPenggunaTemp();
 
-    console.log('buat catatan 3');
-
     if (userDataTemp.stringPassword && userDataTemp.stringPassword.length > 3) {
       // ambil data catatan yang lama
-      console.log('buat catatan 4');
       this.userPassTemp = userDataTemp.stringPassword;
       this.dataLoader.getDataCatatanStorage(this.userPassTemp).then((result: CatatanItem[]) => {
         this.listCatatan = result;
