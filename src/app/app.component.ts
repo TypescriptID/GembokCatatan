@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LibraryLoadersService } from './services/library-loaders.service';
 import { Subscription } from 'rxjs';
+import { LoggerDataService } from './services/logger-data.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription = new Subscription();
 
-  constructor(private readonly loaderLibrary: LibraryLoadersService) {
+  constructor(private readonly loaderLibrary: LibraryLoadersService,
+              private readonly loggers: LoggerDataService) {
     this.subscriptions = new Subscription();
   }
 
@@ -24,10 +26,10 @@ export class AppComponent implements OnInit, OnDestroy {
   loadLibraryCSS() {
     const subs = this.loaderLibrary.loadViewLibraryCSS().subscribe(
       () => {
-        console.log('library loaded');
+        this.loggers.logData('library loaded');
       },
       (errors) => {
-        console.log(errors);
+        this.loggers.logData(errors);
       }
     );
 

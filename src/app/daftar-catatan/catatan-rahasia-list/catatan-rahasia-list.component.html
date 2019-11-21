@@ -1,7 +1,7 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
+      <img src="./assets/banner_logo_cat.png" width="118" height="32" />
     </a>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
@@ -47,7 +47,7 @@
 
     <div class="navbar-end">
       <div class="navbar-item">
-        <div class="buttons">
+        <div class="buttons" (click)="navigasiHalamanLoginLogout()">
           <a class="button is-danger">
             <strong>Keluar</strong>
           </a>
@@ -59,7 +59,32 @@
 
 <!-- DAFTAR CATATAN  -->
 <section class="is-fullheight is-fullwidth bg-components">
-  <div class="container">
+
+  <div *ngIf="isCatatanTersedia">
+    <div class="container" *ngFor="let item of listCatatan; index as i; trackBy: trackByFn">
+      <div class="columns">
+        <div class="column is-8 is-offset-2">
+          <div class="box content">
+            <article class="post p-b-xs">
+              <div class="container-listitem">
+                <div class="media-left m-t-xs">
+                  <p class="image is-32x32">
+                    <img src="http://bulma.io/images/placeholders/128x128.png" />
+                  </p>
+                </div>
+                <div class="media-content">
+                  <h4 class="padding-bottom-list">{{item.judul}}</h4>
+                  <p>{{item.tanggalCatatanBaku}}</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="container">
     <div class="columns">
       <div class="column is-8 is-offset-2">
         <div class="box content">
@@ -79,37 +104,17 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="container">
-    <div class="columns">
-      <div class="column is-8 is-offset-2">
-        <div class="box content">
-          <article class="post p-b-xs">
-            <div class="container-listitem">
-              <div class="media-left m-t-xs">
-                <p class="image is-32x32">
-                  <img src="http://bulma.io/images/placeholders/128x128.png" />
-                </p>
-              </div>
-              <div class="media-content">
-                <h4 class="padding-bottom-list">Bulma: How do you center a button in a box?</h4>
-                <p>tanggal catatan</p>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
+  <!-- JIKA CATATAN KOSONG ATAU BELUM DIBUKA -->
+  <div class="container" *ngIf="isCatatanKosong">
     <div class="columns">
       <div class="column is-8 is-offset-2">
         <div class="box content has-text-centered">
           <article class="post p-t-lg p-b-lg">
             <div class="container-center-forbidden">
-              <img class="image"  src="./assets/cancel_forbidden.svg" alt="forbidden_icon" height="72" width="72" loading="lazy">
+              <img class="image" src="./assets/cancel_forbidden.svg" alt="forbidden_icon" height="72" width="72"
+                loading="lazy">
             </div>
             <h4 class="m-t-md">Catatan belum tersedia untuk ditampilkan</h4>
             <div class="media has-text-centered">

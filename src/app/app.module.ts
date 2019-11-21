@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LibraryLoadersService } from './services/library-loaders.service';
 import { DataStorageService } from './services/data-storage.service';
 import { StatedataServicesService } from './services/statedata-services.service';
+import { LoggerDataService } from 'src/app/services/logger-data.service';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { StatedataServicesService } from './services/statedata-services.service'
     LibraryLoadersService,
     DataStorageService,
     StatedataServicesService,
+    LoggerDataService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent]

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { PasswordCekModel } from 'src/app/models/PasswordCek';
 import { CatatanItem } from 'src/app/models/CatatanItem';
 import { StatedataServicesService } from 'src/app/services/statedata-services.service';
+import { LoggerDataService } from 'src/app/services/logger-data.service';
 
 @Component({
   selector: 'app-loginpage',
@@ -25,7 +26,8 @@ export class LoginpageComponent implements OnInit {
 
   constructor(private router: Router,
               private readonly dataservice: DataLoadersService,
-              private readonly stateservice: StatedataServicesService) { }
+              private readonly stateservice: StatedataServicesService,
+              private readonly loggers: LoggerDataService) { }
 
   ngOnInit() {
   }
@@ -68,7 +70,7 @@ export class LoginpageComponent implements OnInit {
       }
     })
     .catch((err) => {
-      console.warn(err);
+      this.loggers.logData(err);
       this.showDialogGagal('Nama pengguna dan kata sandi anda tidak cocok');
     });
   }
@@ -83,7 +85,7 @@ export class LoginpageComponent implements OnInit {
       }
     })
     .catch((err) => {
-      console.warn(err);
+      this.loggers.logData(err);
       this.showDialogGagal('Catatan yang disimpan tidak dapat dibuka dengan kata sandi yang anda masukkan');
     });
   }

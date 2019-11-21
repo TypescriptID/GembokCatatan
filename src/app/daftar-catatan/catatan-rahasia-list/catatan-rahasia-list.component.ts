@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatatanItem } from 'src/app/models/CatatanItem';
 import { Router } from '@angular/router';
-import { ROUTE_BUAT_CATATAN } from 'src/app/dataparser/Konstans';
+import { ROUTE_BUAT_CATATAN, ROUTE_NAV_KELUAR_CATATAN } from 'src/app/dataparser/Konstans';
 import { StatedataServicesService } from 'src/app/services/statedata-services.service';
 import { DataLoadersService } from 'src/app/services/data-loaders.service';
 import UserDataTemp from 'src/app/models/UserDataTemp';
@@ -14,6 +14,7 @@ import UserDataTemp from 'src/app/models/UserDataTemp';
 export class CatatanRahasiaListComponent implements OnInit {
 
   isCatatanTersedia = false;
+  isCatatanKosong = true;
   listCatatan: CatatanItem[] = [];
   userDataTemps = new UserDataTemp();
 
@@ -30,6 +31,7 @@ export class CatatanRahasiaListComponent implements OnInit {
 
   getDataPasswordTemp() {
     this.userDataTemps = this.stateService.getIsianDataPenggunaTemp();
+    this.ambilDaftarCatatan();
   }
 
   ambilDaftarCatatan() {
@@ -37,10 +39,19 @@ export class CatatanRahasiaListComponent implements OnInit {
     // yang disimpan di state management
     this.dataService.getDataCatatanStorage(this.userDataTemps.stringPassword)
     .then((result: CatatanItem[]) => {
-
+      if (result && result.length > 0) {
+        this.isCatatanTersedia = true;
+        this.isCatatanKosong = false;
+        this.listCatatan = result;
+      } else {
+        this.isCatatanKosong = true;
+        this.isCatatanTersedia = false;
+      }
     })
     .catch((error) => {
       console.warn(error);
+      this.isCatatanTersedia = false;
+      this.isCatatanKosong = true;
     });
   }
 
@@ -53,7 +64,10 @@ export class CatatanRahasiaListComponent implements OnInit {
   }
 
   navigasiHalamanLoginLogout() {
-
+    this.router.navigate([ROUTE_NAV_KELUAR_CATATAN]);
   }
 
+  trackByFn(index: any) {
+    return index; // or item.id
+  }
 }
