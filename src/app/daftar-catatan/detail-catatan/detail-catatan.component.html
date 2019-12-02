@@ -1,0 +1,108 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" (click)="navigasiHalamanDaftarCatatan()">
+        Daftar Catatan
+      </a>
+
+      <a class="navbar-item">
+        Buat Catatan
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Menu Lain
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+            Tentang Aplikasi
+          </a>
+          <a class="navbar-item">
+            Kode Sumber Aplikasi
+          </a>
+          <a class="navbar-item">
+            Kontak
+          </a>
+          <hr class="navbar-divider" />
+          <a class="navbar-item">
+            Laporkan Error
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-danger">
+            <strong>Keluar</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- BUAT DAFTAR CATATAN -->
+<section class="is-fullheight is-fullwidth bg-components">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-12">
+        <div class="box content">
+          <article class="post">
+            <h4 class="padding-bottom-text">Buat Catatan Rahasia</h4>
+            <p>Silahkan masukkan catatan rahasia anda pada kolom isian di bawah ini &nbsp;</p>
+            <div class="media has-text-centered">
+              <div class="media-content">
+                <div class="content">
+
+                  <!-- JUDUL CATATAN -->
+                  <div class="field">
+                    <div class="control">
+                      <label class="label" for="judul_catatan">
+                        Judul Catatan
+                      </label>
+                      <input id="judul_catatan" class="input is-rounded" type="text"
+                        placeholder="Judul catatan rahasia anda" [(ngModel)]="catatanItems.judul">
+                    </div>
+                  </div>
+
+                  <!-- ISI CATATAN -->
+                  <div>
+                    <ckeditor [editor]="editorText" [(ngModel)]="catatanItems.isicatatan" [config]="configEditor">
+                    </ckeditor>
+                  </div>
+
+                  <!-- TOMBOL SIMPAN ATAU BATAL -->
+                  <div class="field is-grouped is-pulled-right m-t-md">
+                    <div class="control">
+                      <button class="button is-success is-rounded has-text-weight-bold is-size-6"
+                        (click)="cekIsianCatatan()">Simpan Catatan</button>
+                      <button
+                        class="button is-danger is-rounded has-text-weight-bold m-l-md is-size-6 width-tombol-batal"
+                        (click)="navigasiHalamanDaftarCatatan()">Batalkan</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

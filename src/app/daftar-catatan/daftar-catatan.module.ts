@@ -6,10 +6,15 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { DaftarCatatanRoutingModule } from './daftar-catatan-routing.module';
 import { CatatanRahasiaListComponent } from './catatan-rahasia-list/catatan-rahasia-list.component';
 import { BuatCatatanComponent } from './buat-catatan/buat-catatan.component';
+import { DetailCatatanComponent } from './detail-catatan/detail-catatan.component';
 
 
 @NgModule({
-  declarations: [CatatanRahasiaListComponent, BuatCatatanComponent],
+  declarations: [
+    CatatanRahasiaListComponent,
+    BuatCatatanComponent,
+    DetailCatatanComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
