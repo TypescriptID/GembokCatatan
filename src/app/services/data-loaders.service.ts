@@ -73,6 +73,47 @@ export class DataLoadersService {
     }
   }
 
+  async getDataCatatanDetail(
+    stringPassIsianTemp: string = '',
+    stringIdCatatan: string) {
+    // ambil. data catatan dari local storage yang disimpan
+    // berdasarkan id catatan yang dipilih
+    let jsonDataParsed: CatatanItem[] = [];
+
+    const stringJsonDataCatatanHashed: string = await this.storageService.getItemStorage(KEY_STORAGE_DATACATATAN);
+    if (stringJsonDataCatatanHashed) {
+      const stringJsonParsed: string = await this.kunciPass.konversiCatatanFromHash(stringPassIsianTemp, stringJsonDataCatatanHashed);
+      if (stringJsonParsed) {
+        jsonDataParsed = await new Promise((resolve) => {
+          resolve(JSON.parse(stringJsonParsed));
+        });
+
+        // ambil data catatan berdasarkan id
+        const dataCatatanDetail: CatatanItem = await new Promise((resolve) => {
+          const panjangData: number = jsonDataParsed.length;
+          let catatanCari: CatatanItem = new CatatanItem();
+          for (let i = 0; i < panjangData; i += 1) {
+            const catatan: CatatanItem = jsonDataParsed[i];
+            const tanggalMs: string = catatan.tanggalCatatanMs;
+            if (stringIdCatatan === tanggalMs) {
+              catatanCari = catatan;
+              break;
+            }
+          }
+          resolve(catatanCari);
+        });
+
+        return Promise.resolve(dataCatatanDetail);
+      } else {
+        // catatan gagal dikonversi karena password pembukanya salah
+        return Promise.reject(new Error('Data catatan tidak bisa dibuka'));
+      }
+    } else {
+      // data catatan kosong, return catatan kosong
+      return Promise.resolve(new CatatanItem());
+    }
+  }
+
   async setDataCatatanStorage(
     stringPassIsianTemp: string,
     catatanModel: CatatanItem, catatanList: CatatanItem[]): Promise<boolean> {
