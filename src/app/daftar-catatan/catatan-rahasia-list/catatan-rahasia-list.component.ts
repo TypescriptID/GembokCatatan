@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatatanItem } from 'src/app/models/CatatanItem';
 import { Router } from '@angular/router';
-import { ROUTE_BUAT_CATATAN, ROUTE_NAV_KELUAR_CATATAN } from 'src/app/dataparser/Konstans';
+import { ROUTE_BUAT_CATATAN, ROUTE_NAV_KELUAR_CATATAN, ROUTE_DETAIL_CATATAN } from 'src/app/dataparser/Konstans';
 import { StatedataServicesService } from 'src/app/services/statedata-services.service';
 import { DataLoadersService } from 'src/app/services/data-loaders.service';
 import UserDataTemp from 'src/app/models/UserDataTemp';
@@ -57,6 +57,18 @@ export class CatatanRahasiaListComponent implements OnInit {
 
   navigasiHalamanBuatCatatan() {
     this.router.navigate([ROUTE_BUAT_CATATAN]);
+  }
+
+  prosesKlikDetail(catatanItemClick: CatatanItem) {
+    const tanggalCatatanMS: string = catatanItemClick.tanggalCatatanMs;
+    if (tanggalCatatanMS && tanggalCatatanMS.length > 1) {
+      this.stateService.setIdCatatanDetail(tanggalCatatanMS);
+      this.navigasiHalamanDetailCatatan();
+    }
+  }
+
+  navigasiHalamanDetailCatatan() {
+    this.router.navigate([ROUTE_DETAIL_CATATAN]);
   }
 
   navigasiHalamanPassGenerator() {

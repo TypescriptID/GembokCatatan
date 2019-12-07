@@ -61,7 +61,8 @@
 <section class="is-fullheight is-fullwidth bg-components">
 
   <div *ngIf="isCatatanTersedia">
-    <div class="container" *ngFor="let item of listCatatan; index as i; trackBy: trackByFn">
+    <div class="container" *ngFor="let item of listCatatan; index as i; trackBy: trackByFn"
+    (click)="prosesKlikDetail(item)">
       <div class="columns">
         <div class="column is-8 is-offset-2">
           <div class="box content">

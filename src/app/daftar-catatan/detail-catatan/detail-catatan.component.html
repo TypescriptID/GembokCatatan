@@ -77,13 +77,13 @@
                         Judul Catatan
                       </label>
                       <input id="judul_catatan" class="input is-rounded" type="text"
-                        placeholder="Judul catatan rahasia anda" [(ngModel)]="catatanItems.judul">
+                        placeholder="Judul catatan rahasia anda" [(ngModel)]="catatanItemsModel.judul">
                     </div>
                   </div>
 
                   <!-- ISI CATATAN -->
                   <div>
-                    <ckeditor [editor]="editorText" [(ngModel)]="catatanItems.isicatatan" [config]="configEditor">
+                    <ckeditor [editor]="editorText" [(ngModel)]="catatanItemsModel.isicatatan" [config]="configEditor">
                     </ckeditor>
                   </div>
 
@@ -92,9 +92,11 @@
                     <div class="control">
                       <button class="button is-success is-rounded has-text-weight-bold is-size-6"
                         (click)="cekIsianCatatan()">Simpan Catatan</button>
+                      <button class="button is-danger is-rounded has-text-weight-bold is-size-6 m-l-md"
+                        (click)="hapusDataCatatan()">Hapus Catatan</button>
                       <button
-                        class="button is-danger is-rounded has-text-weight-bold m-l-md is-size-6 width-tombol-batal"
-                        (click)="navigasiHalamanDaftarCatatan()">Batalkan</button>
+                        class="button is-warning is-rounded has-text-weight-bold m-l-md is-size-6 width-tombol-batal"
+                        (click)="navigasiHalamanDaftarCatatan()">Kembali</button>
                     </div>
                   </div>
                 </div>

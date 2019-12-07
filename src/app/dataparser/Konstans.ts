@@ -10,11 +10,13 @@ export {
 
 // ROUTING NAME
 const ROUTE_BUAT_CATATAN = '/catatan/buat-catatan';
+const ROUTE_DETAIL_CATATAN = '/catatan/detail-catatan';
 const ROUTE_NAV_DAFTAR_CATATAN = '/catatan';
 const ROUTE_NAV_KELUAR_CATATAN = '/masuk-login';
 
 export {
   ROUTE_BUAT_CATATAN,
+  ROUTE_DETAIL_CATATAN,
   ROUTE_NAV_DAFTAR_CATATAN,
   ROUTE_NAV_KELUAR_CATATAN
 };

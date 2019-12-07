@@ -4,6 +4,7 @@ import UserDataTemp from 'src/app/models/UserDataTemp';
 import { CatatanItem } from 'src/app/models/CatatanItem';
 import { DataLoadersService } from 'src/app/services/data-loaders.service';
 import { LoggerDataService } from 'src/app/services/logger-data.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-detail-catatan',
@@ -12,9 +13,25 @@ import { LoggerDataService } from 'src/app/services/logger-data.service';
 })
 export class DetailCatatanComponent implements OnInit {
 
+  public editorText = ClassicEditor;
+
+  configEditor = {
+    toolbar: ['heading', '|', 'bold', 'italic', 'link',
+      'bulletedList', 'numberedList', 'blockQuote',
+      '|', 'undo', 'redo', '|', 'outdent', 'indent'],
+    placeholder: 'Isi pesan catatan disini'
+  };
+
   userDataTemps: UserDataTemp = new UserDataTemp();
   idCatatanDetail = '';
   catatanItemDetail: CatatanItem = new CatatanItem();
+
+  catatanItemsModel = {
+    judul: '',
+    isicatatan: '',
+    tanggalcatatan: '',
+    tanggalcatatanms: '0',
+  };
 
   constructor(
     private readonly stateService: StatedataServicesService,
@@ -48,6 +65,18 @@ export class DetailCatatanComponent implements OnInit {
   }
 
   setTampilanDataCatatan() {
+
+  }
+
+  cekIsianCatatan() {
+
+  }
+
+  hapusDataCatatan() {
+
+  }
+
+  navigasiHalamanDaftarCatatan() {
 
   }
 
