@@ -5,6 +5,7 @@ import { CatatanItem } from 'src/app/models/CatatanItem';
 import { DataLoadersService } from 'src/app/services/data-loaders.service';
 import { LoggerDataService } from 'src/app/services/logger-data.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detail-catatan',
@@ -65,7 +66,14 @@ export class DetailCatatanComponent implements OnInit {
   }
 
   setTampilanDataCatatan() {
-
+    const judulCatatan: string = this.catatanItemDetail.judul;
+    const isiCatatan: string = this.catatanItemDetail.isiCatatan;
+    if (judulCatatan && isiCatatan) {
+      this.catatanItemsModel.judul = judulCatatan;
+      this.catatanItemsModel.isicatatan = isiCatatan;
+    } else {
+      this.showToastGagal('Gagal menampilkan detail catatan');
+    }
   }
 
   cekIsianCatatan() {
@@ -81,7 +89,18 @@ export class DetailCatatanComponent implements OnInit {
   }
 
   showToastGagal(stringMessage: string) {
-
+    Swal.fire({
+      type: 'error',
+      text: stringMessage,
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonColor: '#f14668',
+      confirmButtonText: 'Setuju',
+      allowOutsideClick: false,
+      customClass: {
+        cancelButton: 'buttoncancel-style',
+      }
+    });
   }
 
 }
