@@ -4,8 +4,11 @@ import UserDataTemp from 'src/app/models/UserDataTemp';
 import { CatatanItem } from 'src/app/models/CatatanItem';
 import { DataLoadersService } from 'src/app/services/data-loaders.service';
 import { LoggerDataService } from 'src/app/services/logger-data.service';
+import { parseTanggalSaatIni, parseTanggalSaatIniMs } from 'src/app/dataparser/TanggalParser';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { ROUTE_NAV_DAFTAR_CATATAN } from 'src/app/dataparser/Konstans';
 
 @Component({
   selector: 'app-detail-catatan',
@@ -26,6 +29,7 @@ export class DetailCatatanComponent implements OnInit {
   userDataTemps: UserDataTemp = new UserDataTemp();
   idCatatanDetail = '';
   catatanItemDetail: CatatanItem = new CatatanItem();
+  userPassTemp = '';
 
   catatanItemsModel = {
     judul: '',
@@ -34,10 +38,13 @@ export class DetailCatatanComponent implements OnInit {
     tanggalcatatanms: '0',
   };
 
+  listCatatan: CatatanItem[] = [];
+
   constructor(
     private readonly stateService: StatedataServicesService,
     private readonly dataLoaders: DataLoadersService,
     private readonly loggers: LoggerDataService,
+    private readonly routers: Router,
   ) { }
 
   ngOnInit() {
@@ -77,7 +84,51 @@ export class DetailCatatanComponent implements OnInit {
   }
 
   cekIsianCatatan() {
+    if (this.catatanItemsModel.judul && this.catatanItemsModel.judul.length > 5) {
+      if (this.catatanItemsModel.isicatatan && this.catatanItemsModel.isicatatan.length > 5) {
+        this.buatSimpanCatatan();
+      } else {
+        this.showToastGagal('Silahkan isi catatan rahasia dengan benar');
+      }
+    } else {
+      this.showToastGagal('Silahkan isi judul catatan dengan benar');
+    }
+  }
 
+  buatSimpanCatatan() {
+    this.catatanItemsModel.tanggalcatatan = parseTanggalSaatIni();
+    this.catatanItemsModel.tanggalcatatanms = parseTanggalSaatIniMs();
+    const userDataTemp: UserDataTemp = this.stateService.getIsianDataPenggunaTemp();
+
+    if (userDataTemp.stringPassword && userDataTemp.stringPassword.length > 3) {
+      // ambil data catatan yang lama
+      this.userPassTemp = userDataTemp.stringPassword;
+      this.dataLoaders.getDataCatatanStorage(this.userPassTemp).then((result: CatatanItem[]) => {
+        this.listCatatan = result;
+        this.simpanDataCatatan();
+      })
+        .catch((err) => {
+          console.warn(err);
+        });
+    }
+  }
+
+  simpanDataCatatan() {
+    const catatanItem = new CatatanItem(this.catatanItemsModel.judul, this.catatanItemsModel.isicatatan,
+      this.catatanItemsModel.tanggalcatatan, this.catatanItemsModel.tanggalcatatanms);
+
+
+    this.dataLoaders.setDataCatatanStorage(this.userPassTemp, catatanItem, this.listCatatan)
+      .then((result: boolean) => {
+        if (result === true) {
+          this.showToastSukses('Sukses menyimpan data catatan ke dalam browser');
+        } else {
+          this.showToastGagal('Gagal melakukan penyimpanan catatan');
+        }
+      })
+      .catch((errors) => {
+        console.warn(errors);
+      });
   }
 
   hapusDataCatatan() {
@@ -85,7 +136,29 @@ export class DetailCatatanComponent implements OnInit {
   }
 
   navigasiHalamanDaftarCatatan() {
+    this.routers.navigate([ROUTE_NAV_DAFTAR_CATATAN], { replaceUrl: true });
+  }
 
+
+  showToastSukses(stringPesan: string) {
+    Swal.fire({
+      type: 'success',
+      title: 'Berhasil...',
+      text: stringPesan,
+      confirmButtonText: 'Setuju',
+      timer: 2000,
+      allowOutsideClick: false,
+      onClose: () => {
+        this.navigasiHalamanDaftarCatatan();
+      },
+      customClass: {
+        confirmButton: 'is-info',
+      }
+    }).then((result) => {
+      if (result.value) {
+        this.navigasiHalamanDaftarCatatan();
+      }
+    });
   }
 
   showToastGagal(stringMessage: string) {

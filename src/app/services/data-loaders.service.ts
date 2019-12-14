@@ -114,6 +114,49 @@ export class DataLoadersService {
     }
   }
 
+  async hapusDataCatatanDetail(
+    stringPassIsianTemp: string = '',
+    stringIdCatatan: string) {
+
+    // ambil. data catatan dari local storage yang disimpan
+    // berdasarkan id catatan yang dipilih
+    let jsonDataParsed: CatatanItem[] = [];
+
+    const stringJsonDataCatatanHashed: string = await this.storageService.getItemStorage(KEY_STORAGE_DATACATATAN);
+    if (stringJsonDataCatatanHashed) {
+      const stringJsonParsed: string = await this.kunciPass.konversiCatatanFromHash(stringPassIsianTemp, stringJsonDataCatatanHashed);
+      if (stringJsonParsed) {
+        jsonDataParsed = await new Promise((resolve) => {
+          resolve(JSON.parse(stringJsonParsed));
+        });
+
+        // ambil data catatan berdasarkan id dan hapus
+        const dataCatatanList: CatatanItem[] = await new Promise((resolve) => {
+          const panjangData: number = jsonDataParsed.length;
+          const listDataIndexed: CatatanItem[] = jsonDataParsed;
+
+          for (let i = 0; i < panjangData; i += 1) {
+            const catatan: CatatanItem = jsonDataParsed[i];
+            const tanggalMs: string = catatan.tanggalCatatanMs;
+            if (stringIdCatatan === tanggalMs) {
+              listDataIndexed.splice(i, 1);
+              break;
+            }
+          }
+          resolve(listDataIndexed);
+        });
+
+        return Promise.resolve(dataCatatanList);
+      } else {
+        // catatan gagal dikonversi karena password pembukanya salah
+        return Promise.reject(new Error('Data catatan tidak bisa dihapus'));
+      }
+    } else {
+      // data catatan kosong, return catatan kosong
+      return Promise.resolve([]);
+    }
+  }
+
   async setDataCatatanStorage(
     stringPassIsianTemp: string,
     catatanModel: CatatanItem, catatanList: CatatanItem[]): Promise<boolean> {
