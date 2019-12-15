@@ -49,7 +49,11 @@ export class DetailCatatanComponent implements OnInit {
 
   ngOnInit() {
     this.userDataTemps = this.stateService.getIsianDataPenggunaTemp();
+    this.userPassTemp = this.userDataTemps.stringPassword;
     this.idCatatanDetail = this.stateService.getIdCatatanDetail();
+
+    // panggil pertama kali untuk memuat detail catatan
+    this.getDataCatatanDetail();
   }
 
   getDataCatatanDetail() {
@@ -117,8 +121,8 @@ export class DetailCatatanComponent implements OnInit {
     const catatanItem = new CatatanItem(this.catatanItemsModel.judul, this.catatanItemsModel.isicatatan,
       this.catatanItemsModel.tanggalcatatan, this.catatanItemsModel.tanggalcatatanms);
 
-
-    this.dataLoaders.setDataCatatanStorage(this.userPassTemp, catatanItem, this.listCatatan)
+    this.dataLoaders.setDataCatatanStorageEdit(this.userPassTemp, catatanItem, this.listCatatan,
+      this.idCatatanDetail)
       .then((result: boolean) => {
         if (result === true) {
           this.showToastSukses('Sukses menyimpan data catatan ke dalam browser');
@@ -132,7 +136,20 @@ export class DetailCatatanComponent implements OnInit {
   }
 
   hapusDataCatatan() {
-
+    // hapus data catatan yang dipilih ini dari json data
+    const idCatatan = this.catatanItemDetail.tanggalCatatanMs;
+    this.dataLoaders.hapusDataCatatanDetail(this.userPassTemp, idCatatan)
+      .then((result: CatatanItem[]) => {
+        if (result) {
+          this.showToastSukses('Catatan ini telah berhasil dihapus');
+        } else {
+          this.showToastGagal('Catatan gagal dihapus');
+        }
+      })
+      .catch((errors) => {
+        this.loggers.logData(errors);
+        this.showToastGagal('Catatan gagal dihapus');
+      });
   }
 
   navigasiHalamanDaftarCatatan() {

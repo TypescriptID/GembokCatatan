@@ -78,22 +78,22 @@ export class DataLoadersService {
     stringIdCatatan: string) {
     // ambil. data catatan dari local storage yang disimpan
     // berdasarkan id catatan yang dipilih
-    let jsonDataParsed: CatatanItem[] = [];
+    let listDataCatatan: CatatanItem[] = [];
 
     const stringJsonDataCatatanHashed: string = await this.storageService.getItemStorage(KEY_STORAGE_DATACATATAN);
     if (stringJsonDataCatatanHashed) {
       const stringJsonParsed: string = await this.kunciPass.konversiCatatanFromHash(stringPassIsianTemp, stringJsonDataCatatanHashed);
       if (stringJsonParsed) {
-        jsonDataParsed = await new Promise((resolve) => {
+        listDataCatatan = await new Promise((resolve) => {
           resolve(JSON.parse(stringJsonParsed));
         });
 
         // ambil data catatan berdasarkan id
         const dataCatatanDetail: CatatanItem = await new Promise((resolve) => {
-          const panjangData: number = jsonDataParsed.length;
+          const panjangData: number = listDataCatatan.length;
           let catatanCari: CatatanItem = new CatatanItem();
           for (let i = 0; i < panjangData; i += 1) {
-            const catatan: CatatanItem = jsonDataParsed[i];
+            const catatan: CatatanItem = listDataCatatan[i];
             const tanggalMs: string = catatan.tanggalCatatanMs;
             if (stringIdCatatan === tanggalMs) {
               catatanCari = catatan;
@@ -116,7 +116,7 @@ export class DataLoadersService {
 
   async hapusDataCatatanDetail(
     stringPassIsianTemp: string = '',
-    stringIdCatatan: string) {
+    stringIdCatatan: string): Promise<CatatanItem[]> {
 
     // ambil. data catatan dari local storage yang disimpan
     // berdasarkan id catatan yang dipilih
@@ -146,14 +146,36 @@ export class DataLoadersService {
           resolve(listDataIndexed);
         });
 
-        return Promise.resolve(dataCatatanList);
+        // simpan data catatan yang telah dihapus isinya sesuai pilihan ke storage
+        const stringJsonDataList: string = await new Promise((resolve) => {
+          resolve(JSON.stringify(dataCatatanList));
+        });
+
+        if (stringJsonDataList) {
+          // simpan data dalam bentuk hash kode
+          const stringHashedCatatan: string = await this.kunciPass.konversiCatatanToHash(stringPassIsianTemp,
+            stringJsonDataList);
+
+          // simpan data catatan ke local storage
+          if (stringHashedCatatan) {
+            const results = await this.storageService.saveDataStorage(KEY_STORAGE_DATACATATAN, stringHashedCatatan);
+            if (results) {
+              return Promise.resolve(dataCatatanList);
+            } else {
+              return Promise.reject(new Error('Data catatan tidak bisa dihapus'));
+            }
+          }
+        } else {
+          return Promise.reject(new Error('Data catatan tidak bisa dihapus'));
+        }
+
       } else {
         // catatan gagal dikonversi karena password pembukanya salah
         return Promise.reject(new Error('Data catatan tidak bisa dihapus'));
       }
     } else {
-      // data catatan kosong, return catatan kosong
-      return Promise.resolve([]);
+      // data catatan gagal dihapus
+      return Promise.reject(new Error('Data catatan tidak bisa dihapus'));
     }
   }
 
@@ -170,6 +192,65 @@ export class DataLoadersService {
       // simpan data dalam bentuk hash kode
       const stringHashedCatatan: string = await this.kunciPass.konversiCatatanToHash(stringPassIsianTemp,
         stringJsonDataList);
+
+      // simpan data catatan ke local storage
+      if (stringHashedCatatan) {
+        const results = await this.storageService.saveDataStorage(KEY_STORAGE_DATACATATAN, stringHashedCatatan);
+        if (results) {
+          return Promise.resolve(true);
+        } else {
+          return Promise.resolve(false);
+        }
+      }
+    } else {
+      return Promise.resolve(false);
+    }
+  }
+
+  /**
+   * @description Simpan data catatan yang telah diedit
+   * @param stringPassIsianTemp kata sandi sementara
+   * @param catatanModel model catatan yang disimpan
+   * @param catatanList list data catatan yang akan disimpan
+   */
+  async setDataCatatanStorageEdit(
+    stringPassIsianTemp: string,
+    catatanModel: CatatanItem,
+    catatanList: CatatanItem[],
+    idCatatan: string): Promise<boolean> {
+
+    // cari data catatan sesuai dengan id catatan yang tersimpan
+    const idCatatanSaved: string = idCatatan;
+
+    // hapus data catatan lama
+    const dataCatatanListFilteredID: CatatanItem[] = await new Promise((resolve) => {
+      const panjangData: number = catatanList.length;
+      const listDataBaru: CatatanItem[] = JSON.parse(JSON.stringify(catatanList));
+
+      for (let i = 0; i < panjangData; i += 1) {
+        const dataCatatanItem: CatatanItem = catatanList[i];
+        const stringIdCatatan: string = dataCatatanItem.tanggalCatatanMs;
+        if (idCatatanSaved === stringIdCatatan) {
+          listDataBaru.splice(i, 1);
+          break;
+        }
+      }
+      resolve(listDataBaru);
+    });
+
+    // masukkan data catatan terbaru yang telah di edit
+    dataCatatanListFilteredID.push(catatanModel);
+
+    // simpan data ke data JSON dan hashed
+    const stringDataCatatanJSON: string = await new Promise((resolve) => {
+      resolve(JSON.stringify(dataCatatanListFilteredID));
+    });
+
+    // hashed data catatan
+    if (stringDataCatatanJSON) {
+      // simpan data dalam bentuk hash kode
+      const stringHashedCatatan: string = await this.kunciPass.konversiCatatanToHash(stringPassIsianTemp,
+        stringDataCatatanJSON);
 
       // simpan data catatan ke local storage
       if (stringHashedCatatan) {
