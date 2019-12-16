@@ -83,9 +83,9 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
 
   showDialogKonfirmasiSuksesRegistrasi(stringPesan: string) {
     Swal.fire({
-      type: 'success',
       title: 'Berhasil...',
       text: stringPesan,
+      icon: 'success',
       confirmButtonText: 'Setuju',
       timer: 2000,
       allowOutsideClick: false,
@@ -104,7 +104,7 @@ export class RegistrasiPasswordComponent implements OnInit, OnDestroy {
 
   showDialogPeringatanGagal(stringPesan: string = '') {
     Swal.fire({
-      type: 'error',
+      icon: 'error',
       title: 'Gagal...',
       text: stringPesan,
       showConfirmButton: false,

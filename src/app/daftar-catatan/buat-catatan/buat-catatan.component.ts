@@ -98,7 +98,7 @@ export class BuatCatatanComponent implements OnInit {
 
   showToastSukses(stringPesan: string) {
     Swal.fire({
-      type: 'success',
+      icon: 'success',
       title: 'Berhasil...',
       text: stringPesan,
       confirmButtonText: 'Setuju',
@@ -119,7 +119,7 @@ export class BuatCatatanComponent implements OnInit {
 
   showToastGagal(stringPesan: string = '') {
     Swal.fire({
-      type: 'error',
+      icon: 'error',
       text: stringPesan,
       showConfirmButton: false,
       showCancelButton: true,

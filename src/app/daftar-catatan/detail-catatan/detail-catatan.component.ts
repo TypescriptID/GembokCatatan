@@ -159,7 +159,7 @@ export class DetailCatatanComponent implements OnInit {
 
   showToastSukses(stringPesan: string) {
     Swal.fire({
-      type: 'success',
+      icon: 'success',
       title: 'Berhasil...',
       text: stringPesan,
       confirmButtonText: 'Setuju',
@@ -180,7 +180,7 @@ export class DetailCatatanComponent implements OnInit {
 
   showToastGagal(stringMessage: string) {
     Swal.fire({
-      type: 'error',
+      icon: 'error',
       text: stringMessage,
       showConfirmButton: false,
       showCancelButton: true,
