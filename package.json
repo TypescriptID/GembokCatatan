@@ -33,7 +33,7 @@
     "moment": "^2.24.0",
     "node-forge": "^0.9.1",
     "rxjs": "~6.4.0",
-    "simple-crypto-js": "^2.2.0",
+    "simple-crypto-js": "^2.3.0",
     "sweetalert2": "^9.5.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
