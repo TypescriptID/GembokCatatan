@@ -30,7 +30,7 @@
     "bulma-extensions": "^6.2.7",
     "js-cookie": "^2.2.1",
     "localforage": "^1.7.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-forge": "^0.9.1",
     "rxjs": "~6.4.0",
     "simple-crypto-js": "^2.2.0",
